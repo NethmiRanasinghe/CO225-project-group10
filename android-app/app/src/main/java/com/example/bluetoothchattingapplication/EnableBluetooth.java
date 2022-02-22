@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EnableBluetooth extends AppCompatActivity {
 
-
     Button bluetoothOn;
     BluetoothAdapter bluetoothAdapter;
     Intent bluetoothEnableIntent;
@@ -22,8 +21,7 @@ public class EnableBluetooth extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.enable_bluetooth);
-
+        setContentView(R.layout.activity_bluetooth_enable);
         // to check whether Bluetooth is supported on device, use object of BluetoothAdapter class
         bluetoothOn = (Button) findViewById(R.id.enable_BT);
         // if this method returns null, then it means Bluetooth is not supported on the device
