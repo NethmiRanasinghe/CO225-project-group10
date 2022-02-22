@@ -1,13 +1,21 @@
 package com.example.bluetoothchattingapplication;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class EnableBluetooth extends AppCompatActivity {
 
@@ -15,6 +23,8 @@ public class EnableBluetooth extends AppCompatActivity {
     BluetoothAdapter bluetoothAdapter;
     Intent bluetoothEnableIntent;
     int requestedEnableSignal;
+
+
 
 
     @Override
@@ -38,13 +48,15 @@ public class EnableBluetooth extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == requestedEnableSignal) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(getApplicationContext(), "Bluetooth is succesfully enabled!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Bluetooth is successfully enabled!", Toast.LENGTH_LONG).show();
 
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(), "Oops! Bluetooth enabling cancelled", Toast.LENGTH_LONG).show();
             }
         }
     }
+
+
 
     private void enableBluetooth() {
         // anonymous instance of an anonymous inner class
