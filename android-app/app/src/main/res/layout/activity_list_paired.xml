@@ -3,28 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color">
+
+    <Button
+        android:id="@+id/btn_login2"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:background="@drawable/rounded_cornerbutton"
+        android:textColor="@android:color/white"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.922"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.904" />
 
     <Button
         android:id="@+id/show_pairedDevices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:text="Show Paired Devices"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.354" />
+        app:layout_constraintVertical_bias="0.055" />
 
     <ListView
         android:id="@+id/paired_devices"
-        android:layout_width="409dp"
-        android:layout_height="387dp"
-        android:background="@color/purple_200"
+        android:layout_width="401dp"
+        android:layout_height="255dp"
+        android:background="@color/app_background_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_pairedDevices" />
+        app:layout_constraintTop_toBottomOf="@+id/show_pairedDevices"
+        app:layout_constraintVertical_bias="0.022">
+
+
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,11 +20,10 @@ import androidx.core.content.ContextCompat;
 public class EnableBluetooth extends AppCompatActivity {
 
     Button bluetoothOn;
+    Button proceed;
     BluetoothAdapter bluetoothAdapter;
     Intent bluetoothEnableIntent;
     int requestedEnableSignal;
-
-
 
 
     @Override
@@ -34,6 +33,7 @@ public class EnableBluetooth extends AppCompatActivity {
         setContentView(R.layout.activity_bluetooth_enable);
         // to check whether Bluetooth is supported on device, use object of BluetoothAdapter class
         bluetoothOn = (Button) findViewById(R.id.enable_BT);
+        proceed = (Button) findViewById(R.id.btn_login);
         // if this method returns null, then it means Bluetooth is not supported on the device
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         // call this method to on bluetooth on the device
@@ -82,5 +82,13 @@ public class EnableBluetooth extends AppCompatActivity {
 
         }
         );
+        // proceed to next activity once the button is clicked
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent proceedToNext = new Intent(EnableBluetooth.this, ListPairedDevices.class);
+                startActivity(proceedToNext);
+            }
+        });
     }
 }
