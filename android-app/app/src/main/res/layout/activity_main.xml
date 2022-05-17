@@ -47,7 +47,7 @@
         android:layout_width="395dp"
         android:layout_height="134dp"
         android:layout_below="@id/btnFindUnpairedDevices"
-        android:layout_marginTop="38dp"></ListView>
+        android:layout_marginTop="62dp"></ListView>
 
     <Button
         android:id="@+id/btnStartConnection"
@@ -62,31 +62,40 @@
         android:text="Start Connection" />
 
     <EditText
+        android:id="@+id/editText"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:hint="Enter Text Here"
-        android:layout_below="@+id/lvNewDevices"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText"/>
+        android:layout_marginStart="13dp"
+        android:hint="Enter Text Here" />
 
     <Button
+        android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SEND"
-        android:id="@+id/btnSend"
+        android:layout_below="@+id/lvNewDevices"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="278dp"
         android:layout_toRightOf="@+id/editText"
-        android:layout_below="@+id/lvNewDevices"/>
+        android:text="SEND" />
 
     <TextView
-        android:layout_marginTop="10dp"
-        android:text="Incoming messages"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentStart="true"
         android:id="@+id/incomingMessage"
+        android:layout_width="363dp"
+        android:layout_height="72dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        />
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="79dp"
+        android:layout_marginEnd="137dp"
+        android:text="Incoming messages" />
+
+    <ListView
+        android:id="@+id/message_history"
+        android:layout_width="wrap_content"
+        android:layout_height="151dp"
+        android:layout_below="@+id/lvNewDevices"
+        android:layout_marginTop="65dp" />
 
 
 </RelativeLayout>

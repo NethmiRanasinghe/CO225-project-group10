@@ -1,3 +1,23 @@
+//****************************   MOST RECENT UPDATES  ******************************************
+/*
+18/05/2022_03:08_AM
+
+[TARGET] : once the send button is clicked the newly created ListView should be updated with the older messages from the database
+
+    In MainActivity.java -->
+                   *a ListView listView was declared and initialized [line 67 and line 211]
+                   *under the btnSend [from line 256]
+
+    In DatabaseHelper.java -->
+                   *new method getListContent()
+
+    In activity_main.xml -->
+                   *new ListView was added just above the TextEdit(typing area)--> to display the previous messages
+
+[TARGET: COMPLETED THEN,]:  New code under the btnSend might work for the receiver's side as well (with mReceiver)
+*/
+//*****************************************************************************************************
+
 package com.example.bluetoothchattingapplication;
 
 import android.Manifest;
@@ -7,13 +27,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
     public DeviceListAdapter mDeviceListAdapter;
     ListView lvNewDevices;
-
+    ListView listView;
     //************************************************************for database***********************************************************
     DatabaseHelper mDatabaseHelper; //for database
     //***********************************************************************************************************************************
@@ -194,6 +217,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //***************************************************************for database**********************************************
         mDatabaseHelper = new DatabaseHelper(MainActivity.this);
+
+        listView = (ListView) findViewById(R.id.message_history);
         //***************************************************************************************************************************
 
 //        btnONOFF.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +264,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Log.d(TAG, "message displaying at outgoing chat...");
                 //incomingMessages.setGravity(Gravity.RIGHT);
                 incomingMessages.setText(messages);
+
+                //________________________________________________latest update___________________________________________
+
+                //need to populate an Array list from the database
+
+
+                ArrayList<String> dataList = new ArrayList<>();
+
+                Cursor data = mDatabaseHelper.getListContents();
+
+                if(data.getCount()==0){
+                    //no data in the database: put a toast
+                }else{
+                    while(data.moveToNext()){
+                        dataList.add(data.getString(2));
+
+                        //below the context was going to pass by the keyword 'the', but it gave an error.
+                        //then it was changed to getApplicationContext() which do the same thing I guess : [need to check this]
+                        ListAdapter listAdapter =  new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,dataList);
+                        listView.setAdapter(listAdapter);
+                    }
+                }
+                //________________________________________________________________________________________________________
 
                 //after message is sent the editText field be empty
                 etSend.setText("");
