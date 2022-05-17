@@ -1,5 +1,8 @@
 package com.example.bluetoothchattingapplication;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -16,18 +19,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class withoutDB_MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private static final String TAG = "MainActivity";
 
     BluetoothAdapter mBluetoothAdapter;
@@ -52,35 +49,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public DeviceListAdapter mDeviceListAdapter;
     ListView lvNewDevices;
 
-    //************************************************************for database***********************************************************
-    DatabaseHelper mDatabaseHelper; //for database
-    //***********************************************************************************************************************************
+    //first broadcast receiver
+    private final BroadcastReceiver mBroadcastReceiver1 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(mBluetoothAdapter.ACTION_STATE_CHANGED)) {
+                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, mBluetoothAdapter.ERROR);
 
-    // //first broadcast receiver
-    // private final BroadcastReceiver mBroadcastReceiver1 = new BroadcastReceiver() {
-    //     @Override
-    //     public void onReceive(Context context, Intent intent) {
-    //         String action = intent.getAction();
-    //         if (action.equals(mBluetoothAdapter.ACTION_STATE_CHANGED)) {
-    //             final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, mBluetoothAdapter.ERROR);
-
-    //             switch (state) {
-    //                 case BluetoothAdapter.STATE_OFF:
-    //                     Log.d(TAG, "onReceiver: STATE OFF");
-    //                     break;
-    //                 case BluetoothAdapter.STATE_TURNING_OFF:
-    //                     Log.d(TAG, "mBroadcastReceiver1: STATE TURNING OFF");
-    //                     break;
-    //                 case BluetoothAdapter.STATE_ON:
-    //                     Log.d(TAG, "mBroadcastReceiver1: STATE ON");
-    //                     break;
-    //                 case BluetoothAdapter.STATE_TURNING_ON:
-    //                     Log.d(TAG, "mBroadcastReceiver1: STATE TURNING ON");
-    //                     break;
-    //             }
-    //         }
-    //     }
-    // };
+                switch (state) {
+                    case BluetoothAdapter.STATE_OFF:
+                        Log.d(TAG, "onReceiver: STATE OFF");
+                        break;
+                    case BluetoothAdapter.STATE_TURNING_OFF:
+                        Log.d(TAG, "mBroadcastReceiver1: STATE TURNING OFF");
+                        break;
+                    case BluetoothAdapter.STATE_ON:
+                        Log.d(TAG, "mBroadcastReceiver1: STATE ON");
+                        break;
+                    case BluetoothAdapter.STATE_TURNING_ON:
+                        Log.d(TAG, "mBroadcastReceiver1: STATE TURNING ON");
+                        break;
+                }
+            }
+        }
+    };
 
     //second broadcast receiver
 
@@ -160,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onDestroy() {
         Log.d(TAG, "onDestroy called.");
         super.onDestroy();
-        // unregisterReceiver(mBroadcastReceiver1);
+        unregisterReceiver(mBroadcastReceiver1);
         unregisterReceiver(mBroadcastReceiver2);
         unregisterReceiver(mBroadcastReceiver3);
         unregisterReceiver(mBroadcastReceiver4);
@@ -170,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Button btnONOFF = (Button) findViewById(R.id.btnOnOff);
+        Button btnONOFF = (Button) findViewById(R.id.btnOnOff);
 
         btnEnableDisable_Discoverable = (Button) findViewById(R.id.btnDiscoverableONOFF);
         lvNewDevices = (ListView) findViewById(R.id.lvNewDevices);
@@ -190,19 +183,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        lvNewDevices.setOnItemClickListener(MainActivity.this);
+        lvNewDevices.setOnItemClickListener(withoutDB_MainActivity.this);
 
-        //***************************************************************for database**********************************************
-        mDatabaseHelper = new DatabaseHelper(MainActivity.this);
-        //***************************************************************************************************************************
-
-//        btnONOFF.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "enabling/disabling bluetooth...");
-//                enableDisableBT();
-//            }
-//        });
+        btnONOFF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "enabling/disabling bluetooth...");
+                enableDisableBT();
+            }
+        });
 
         btnStartConnection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,65 +205,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        //******************************************************************check this: updated for the database insertion************************************
         btnSend.setOnClickListener(new View.OnClickListener() {
-            //sent state : 1 (when the message is a sent message it is indicated by value 1 in the database STATE column)
-
-
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 byte[] bytes = etSend.getText().toString().getBytes(Charset.defaultCharset());
-
-                String sentMessage = etSend.getText().toString(); //taking the typed message as a String to database
-
                 mBluetoothConnection.write(bytes);
 
-                //adding data to the database
-                // import androidx.annotation.RequiresApi; is used for now() part below
-                AddData(mBTDevice.getAddress(),sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
-
-                // display the sent message on the chat screen (could not align this)
-                messages.append("SENT : " + sentMessage + "\n");
-                Log.d(TAG, "message displaying at outgoing chat...");
-                //incomingMessages.setGravity(Gravity.RIGHT);
-                incomingMessages.setText(messages);
-
-                //after message is sent the editText field be empty
                 etSend.setText("");
             }
         });
-        //*************************************************************************************************************************************************
 
     }
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        //received state : 2 (when the message is a received message it is indicated by value 2 in the database STATE column)
-
-
-        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onReceive(Context context, Intent intent) {
             String text = intent.getStringExtra("theMessage");
+            //Log.d(TAG, "is printing working**************************************************");
 
-            AddData(mBTDevice.getAddress(),text,String.valueOf(LocalDateTime.now()),2); //here took a default string as a data and time ;-)
-
-            messages.append("RECEIVE : " + text + "\n");
-            Log.d(TAG, "message sending to incoming chat...");
+            messages.append(text + "\n");
             incomingMessages.setText(messages);
         }
     };
 
-
     //create method for starting connection
-//***remember the connection will fail and app will crash if you haven't paired first
+
     public void startConnection() {
         startBTConnection(mBTDevice, MY_UUID_INSECURE);
     }
 
-    /**
-     * starting chat service method
-     */
+    //starting the chat service with this method
     public void startBTConnection(BluetoothDevice device, UUID uuid) {
         Log.d(TAG, "startBTConnection: Initializing RFCOM Bluetooth Connection.");
 
@@ -282,27 +242,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    // public void enableDisableBT() {
-    //     //there are three scenarios here...
-    //     if (mBluetoothAdapter == null) {
-    //         Log.d(TAG, "enableDisableBT: Does not have bluetooth capability");
-    //     }
-    //     if (!mBluetoothAdapter.isEnabled()) {
-    //         //if the bluetooth is not enabled we are using intent to turn on the bluetooth
-    //         Intent enableBTIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-    //         startActivity(enableBTIntent);
+    public void enableDisableBT() {
+        //there are three scenarios here...
+        if (mBluetoothAdapter == null) {
+            Log.d(TAG, "enableDisableBT: Does not have bluetooth capability");
+        }
+        if (!mBluetoothAdapter.isEnabled()) {
+            //if the bluetooth is not enabled we are using intent to turn on the bluetooth
+            Intent enableBTIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(enableBTIntent);
 
-    //         //Intent filter is used to catch the state change
-    //         IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-    //         registerReceiver(mBroadcastReceiver1, BTIntent);
-    //     }
-    //     if (mBluetoothAdapter.isEnabled()) {
-    //         mBluetoothAdapter.disable(); //turning off the bluetooth if bt is turned on
+            //Intent filter is used to catch the state change
+            IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+            registerReceiver(mBroadcastReceiver1, BTIntent);
+        }
+        if (mBluetoothAdapter.isEnabled()) {
+            mBluetoothAdapter.disable(); //turning off the bluetooth if bt is turned on
 
-    //         IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-    //         registerReceiver(mBroadcastReceiver1, BTIntent);
-    //     }
-    // }
+            IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+            registerReceiver(mBroadcastReceiver1, BTIntent);
+        }
+    }
 
     public void btnEnableDisable_Discoverable(View view) {
         Log.d(TAG, "btnEnableDisable_Discoverable: making the device discoverable");
@@ -331,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         if (!mBluetoothAdapter.isDiscovering()) {
 
-            //check BT permissions in manifest
+         
             checkBTPermissions();
 
             mBluetoothAdapter.startDiscovery();
@@ -355,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //first cancel discovery because its very memory intensive.
+        //need to cancel the discovery since it is memory intensive
         mBluetoothAdapter.cancelDiscovery();
 
         Log.d(TAG, "onItemClick: You Clicked on a device.");
@@ -366,7 +326,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d(TAG, "onItemClick: deviceAddress = " + deviceAddress);
 
         //create the bond.
-        //NOTE: Requires API 17+? I think this is JellyBean
+        //JellyBean API - 17+
+        //LollyPop - API - 22
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Log.d(TAG, "Trying to pair with " + deviceName);
 
@@ -374,26 +335,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             mBTDevices.get(i).createBond();
 
             mBTDevice = mBTDevices.get(i);
-            mBluetoothConnection = new BluetoothCommunication(MainActivity.this);
+            mBluetoothConnection = new BluetoothCommunication(withoutDB_MainActivity.this);
         }
     }
-
-    //*******************************************************for database********************************************************************
-    public void AddData(String deviceAddress, String message, String dateTime, int status){
-        //this method will send the data to the database
-        boolean insertData = mDatabaseHelper.addData(deviceAddress, message, dateTime, status); //inserting data
-
-        //checking whether the data insertion is completed is successful or not
-        if(insertData){
-            Log.d(TAG, "database part activated");
-            toastMessage("Inserting data: Successful!");
-        }else{
-            toastMessage("Inserting data: Not Successful!");
-        }
-    }
-
-    private void toastMessage(String textMessage) {
-        Toast.makeText(this,textMessage, Toast.LENGTH_SHORT).show();
-    }
-    //**************************************************************************************************************************************
 }
