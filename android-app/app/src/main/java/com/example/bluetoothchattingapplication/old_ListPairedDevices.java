@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,9 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
-public class ListPairedDevices extends AppCompatActivity {
+public class old_ListPairedDevices extends AppCompatActivity {
 
     Button showPairedButton;
     ListView listOfPairedDevices;
@@ -36,7 +34,7 @@ public class ListPairedDevices extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_paired);
+        setContentView(R.layout.old_activity_list_paired);
         showPairedButton = (Button) findViewById(R.id.show_pairedDevices);
         listOfPairedDevices = (ListView) findViewById(R.id.paired_devices);
 
@@ -80,7 +78,7 @@ public class ListPairedDevices extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode == LOCATION_REQUEST_PERMISSION){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Intent intent = new Intent(getApplicationContext(), ListPairedDevices.class);
+                Intent intent = new Intent(getApplicationContext(), old_ListPairedDevices.class);
             }else{
                 new AlertDialog.Builder(getApplicationContext()).setCancelable(false).setMessage("Location permission required\n Please grant")
                         .setPositiveButton("Grant", new DialogInterface.OnClickListener() {
@@ -92,7 +90,7 @@ public class ListPairedDevices extends AppCompatActivity {
                         .setNegativeButton("Deny", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                ListPairedDevices.this.finish();
+                                old_ListPairedDevices.this.finish();
                             }
                         }).create();
             }
@@ -102,7 +100,7 @@ public class ListPairedDevices extends AppCompatActivity {
 
     public void checkPermission(){
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(ListPairedDevices.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_PERMISSION);
+            ActivityCompat.requestPermissions(old_ListPairedDevices.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_PERMISSION);
 
         }
     }

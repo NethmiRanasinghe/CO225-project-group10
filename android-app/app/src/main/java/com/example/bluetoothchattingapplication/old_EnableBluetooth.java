@@ -1,23 +1,15 @@
 package com.example.bluetoothchattingapplication;
 
-import android.Manifest;
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-public class EnableBluetooth extends AppCompatActivity {
+public class old_EnableBluetooth extends AppCompatActivity {
 
     Button bluetoothOn;
     Button proceed;
@@ -30,7 +22,7 @@ public class EnableBluetooth extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetooth_enable);
+        setContentView(R.layout.old_activity_bluetooth_enable);
         // to check whether Bluetooth is supported on device, use object of BluetoothAdapter class
         bluetoothOn = (Button) findViewById(R.id.enable_BT);
         proceed = (Button) findViewById(R.id.btn_login);
@@ -86,7 +78,7 @@ public class EnableBluetooth extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent proceedToNext = new Intent(EnableBluetooth.this, ListPairedDevices.class);
+                Intent proceedToNext = new Intent(old_EnableBluetooth.this, old_ListPairedDevices.class);
                 startActivity(proceedToNext);
             }
         });
