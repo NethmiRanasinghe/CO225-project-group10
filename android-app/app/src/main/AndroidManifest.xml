@@ -37,10 +37,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BluetoothChattingApplication">
         <activity
-            android:name=".old_ListPairedDevices"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".old_EnableBluetooth"
+            android:name=".HomePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

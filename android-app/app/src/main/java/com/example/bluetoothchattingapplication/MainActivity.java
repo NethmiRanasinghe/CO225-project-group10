@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.old_activity_main);
+        setContentView(R.layout.activity_main);
         Button btnONOFF = (Button) findViewById(R.id.btnOnOff);
 
         btnEnableDisable_Discoverable = (Button) findViewById(R.id.btnDiscoverableONOFF);
