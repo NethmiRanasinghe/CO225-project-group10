@@ -95,6 +95,11 @@ public class NewThirdPage extends AppCompatActivity {
 //                    Parcelable user = getIntent().getParcelableExtra("bluetoothDevice");
 //                    mBTDevice = (BluetoothDevice) user;
                     startConnection();
+                    //adding data to the database
+
+                    //AddData(mBTDevice.getAddress(),sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
+                    listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
+
 
                 } catch (NullPointerException e) {
                     e.printStackTrace();
@@ -117,24 +122,10 @@ public class NewThirdPage extends AppCompatActivity {
 
                 mBluetoothConnection.write(bytes);
 
-                //adding data to the database
-
-                AddData(mBTDevice.getAddress(),sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
-
-
-                //________________________________________________latest update___________________________________________
-
-                //need to populate an Array list from the database
-
-                //ArrayList<String> dataList = new ArrayList<>();
-
-                //ListAdapter listAdapter1;
-                //Cursor data = mDatabaseHelper.getListForDevice(mBTDevice);
-                listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
-
-
-
-                //________________________________________________________________________________________________________
+//                //adding data to the database
+//
+                  AddData(mBTDevice.getAddress(),sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
+//                listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
 
                 //after message is sent the editText field be empty
                 etSend.setText("");

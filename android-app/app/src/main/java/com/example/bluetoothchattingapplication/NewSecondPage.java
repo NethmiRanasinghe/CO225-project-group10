@@ -31,6 +31,7 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
     Button scan_Available;
     //Button showPairedButton;
     ListView listOfPairedDevices;
+    ArrayAdapter<String> pairedDevices;
 
   //  private static final UUID MY_UUID_INSECURE = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
 
@@ -137,8 +138,6 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
 
         listOfPairedDevices = (ListView) findViewById(R.id.pairedDeviceList);
 
-      //  showPairedDevices();
-
         mBTDevices = new ArrayList<>();
 
        // LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,new IntentFilter("incomingMessage"));
@@ -147,38 +146,38 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
         registerReceiver(mBroadcastReceiver4, filter);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        showPairedDevices();
 
         availableList.setOnItemClickListener(NewSecondPage.this);
         //*************************************************************************************************************************************************
 
     }
 
-//    private void showPairedDevices() {
-//
-//       // showPairedButton.setOnClickListener(new View.OnClickListener() {
-//
-////            @Override
-////            public void onClick(View view) {
-//                Set<BluetoothDevice> pairedBTdevices = mBluetoothAdapter.getBondedDevices();
-//        Toast.makeText(getApplicationContext(), "paired devices", Toast.LENGTH_LONG).show();
-//
-//        String[] strings = new String[pairedBTdevices.size()];
-//                int index = 0;
-//
-//                if(pairedBTdevices.size()>0){
-//                    for (BluetoothDevice device_ : pairedBTdevices){
-//
-//                        strings[index] = device_.getName();
-//                        index++;
-//                    }
-//                    ArrayAdapter<String> pairedDevices = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, strings);
-//                    listOfPairedDevices.setAdapter(pairedDevices);
-//                }else{
-//                    Toast.makeText(getApplicationContext(), "no paired devices", Toast.LENGTH_LONG).show();
-//                }
-//         //   }
-//       // });
-//    }
+    private void showPairedDevices() {
+
+       // showPairedButton.setOnClickListener(new View.OnClickListener() {
+
+//            @Override
+//            public void onClick(View view) {
+        Set<BluetoothDevice> pairedBTdevices = mBluetoothAdapter.getBondedDevices();
+        //Toast.makeText(getApplicationContext(), "paired devices", Toast.LENGTH_LONG).show();
+        String[] strings = new String[pairedBTdevices.size()];
+                int index = 0;
+
+                if(pairedBTdevices.size()>0){
+                    for (BluetoothDevice device_ : pairedBTdevices){
+
+                        strings[index] = device_.getName();
+                        index++;
+                    }
+                    pairedDevices = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, strings);
+                    listOfPairedDevices.setAdapter(pairedDevices);
+                }else{
+                    Toast.makeText(getApplicationContext(), "no paired devices", Toast.LENGTH_LONG).show();
+                }
+         //   }
+       // });
+    }
 
 
     public void btnEnableDisable_Discoverable(View view) {
