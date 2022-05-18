@@ -1,3 +1,5 @@
+package com.example.bluetoothchattingapplication;
+
 //****************************   MOST RECENT UPDATES  ******************************************
 /*
 18/05/2022_03:08_AM
@@ -18,7 +20,6 @@
 */
 //*****************************************************************************************************
 
-package com.example.bluetoothchattingapplication;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
@@ -198,12 +199,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         btnEnableDisable_Discoverable = (Button) findViewById(R.id.btnDiscoverableONOFF);
         lvNewDevices = (ListView) findViewById(R.id.lvNewDevices);
         mBTDevices = new ArrayList<>();
+        mBluetoothConnection = new BluetoothCommunication(MainActivity.this);
 
         btnStartConnection = (Button) findViewById(R.id.btnStartConnection);
         btnSend = (Button) findViewById(R.id.btnSend);
         etSend = (EditText) findViewById(R.id.editText);
 
-        incomingMessages = (TextView) findViewById(R.id.incomingMessage);
+        //incomingMessages = (TextView) findViewById(R.id.incomingMessage);
         messages = new StringBuilder();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,new IntentFilter("incomingMessage"));
@@ -270,22 +272,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 //need to populate an Array list from the database
 
-                ArrayList<String> dataList = new ArrayList<>();
+                //ArrayList<String> dataList = new ArrayList<>();
 
-                Cursor data = mDatabaseHelper.getListContents();
+                //ListAdapter listAdapter1;
+                //Cursor data = mDatabaseHelper.getListForDevice(mBTDevice);
+                listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
 
-                if(data.getCount()==0){
-                    //no data in the database: put a toast
-                }else{
-                    while(data.moveToNext()){
-                        dataList.add(data.getString(2));
 
-                        //below the context was going to pass by the keyword 'the', but it gave an error.
-                        //then it was changed to getApplicationContext() which do the same thing I guess : [need to check this]
-                        ListAdapter listAdapter =  new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,dataList);
-                        listView.setAdapter(listAdapter);
-                    }
-                }
 
                 //________________________________________________________________________________________________________
 
@@ -310,6 +303,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             messages.append("RECEIVE : " + text + "\n");
             Log.d(TAG, "message sending to incoming chat...");
+            listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
+
             incomingMessages.setText(messages);
         }
     };
@@ -423,7 +418,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             mBTDevices.get(i).createBond();
 
             mBTDevice = mBTDevices.get(i);
-            mBluetoothConnection = new BluetoothCommunication(MainActivity.this);
+            //mBluetoothConnection = new BluetoothCommunication(MainActivity.this);
         }
     }
 

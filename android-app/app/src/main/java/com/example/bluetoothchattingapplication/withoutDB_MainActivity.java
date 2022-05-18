@@ -173,7 +173,7 @@ public class withoutDB_MainActivity extends AppCompatActivity implements Adapter
         btnSend = (Button) findViewById(R.id.btnSend);
         etSend = (EditText) findViewById(R.id.editText);
 
-        incomingMessages = (TextView) findViewById(R.id.incomingMessage);
+        //incomingMessages = (TextView) findViewById(R.id.incomingMessage);
         messages = new StringBuilder();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,new IntentFilter("incomingMessage"));

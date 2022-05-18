@@ -8,7 +8,10 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 
+import java.util.ArrayList;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -68,13 +71,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getListContents(){
+    public ListAdapter getListContents(BluetoothDevice mBTDevice, Context context){
         //method to get the data from the database
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        return data;
+        //return data;
+
+        ArrayList<String> dataList = new ArrayList<>();
+        ListAdapter listAdapter = null;
+        //Cursor data = mDatabaseHelper.getListForDevice(mBTDevice);
+
+        if(data.getCount()==0){
+            //no data in the database: put a toast
+        }else{
+            while(data.moveToNext()){
+                dataList.add(data.getString(2));
+
+                //below the context was going to pass by the keyword 'the', but it gave an error.
+                //then it was changed to getApplicationContext() which do the same thing I guess : [need to check this]
+                listAdapter =  new ArrayAdapter<>(context,android.R.layout.simple_list_item_1,dataList);
+                //listView.setAdapter(listAdapter);
+            }
+        }
+
+        return listAdapter;
     }
 
+    /*
+    public Cursor getListForDevice(BluetoothDevice device){
+        //this method will get the data for a particular device address
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE device = "+ device.getAddress(), null);
+        return data;
+
+    }
+*/
 
 
 

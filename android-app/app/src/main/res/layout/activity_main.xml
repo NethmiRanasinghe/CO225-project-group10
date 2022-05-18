@@ -13,32 +13,26 @@
     >
 
     <Button
-        android:id="@+id/btnOnOff"
-        android:layout_width="119dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="12dp"
-        android:text="ON/OFF" />
-
-    <Button
         android:id="@+id/btnDiscoverableONOFF"
-        android:layout_width="196dp"
-        android:layout_height="44dp"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="96dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:layout_toEndOf="@+id/btnOnOff"
+        android:layout_marginEnd="64dp"
         android:onClick="btnEnableDisable_Discoverable"
         android:text="Enable Discoverability" />
 
     <Button
         android:id="@+id/btnFindUnpairedDevices"
-        android:layout_width="155dp"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="63dp"
         android:layout_below="@+id/btnOnOff"
-        android:layout_marginTop="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="77dp"
         android:onClick="btnDiscover"
         android:text="Discover" />
 
@@ -46,59 +40,71 @@
         android:id="@+id/lvNewDevices"
         android:layout_width="395dp"
         android:layout_height="134dp"
-        android:layout_below="@id/btnFindUnpairedDevices"
-        android:layout_marginTop="62dp"></ListView>
+        android:layout_below="@+id/btnStartConnection"
+        android:layout_marginTop="36dp"></ListView>
 
     <Button
         android:id="@+id/btnStartConnection"
-        android:layout_width="186dp"
-        android:layout_height="wrap_content"
+        android:layout_width="185dp"
+        android:layout_height="62dp"
         android:layout_below="@+id/btnDiscoverableONOFF"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="11dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="14dp"
         android:layout_toEndOf="@+id/btnFindUnpairedDevices"
         android:text="Start Connection" />
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="242dp"
+        android:layout_height="70dp"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="537dp"
         android:hint="Enter Text Here" />
 
     <Button
         android:id="@+id/btnSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lvNewDevices"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="278dp"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="561dp"
         android:layout_toRightOf="@+id/editText"
         android:text="SEND" />
-
-    <TextView
-        android:id="@+id/incomingMessage"
-        android:layout_width="244dp"
-        android:layout_height="93dp"
-        android:layout_below="@+id/message_history"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginEnd="138dp"
-        android:layout_marginBottom="20dp"
-        android:text="Incoming messages" />
 
     <ListView
         android:id="@+id/message_history"
         android:layout_width="wrap_content"
         android:layout_height="151dp"
         android:layout_below="@+id/lvNewDevices"
-        android:layout_marginTop="65dp" />
+        android:layout_marginTop="45dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="122dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="325dp"
+        android:layout_marginEnd="137dp"
+        android:text="the chat" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="143dp"
+        android:layout_marginTop="165dp"
+        android:layout_marginEnd="120dp"
+        android:text="available devices" />
 
 
 </RelativeLayout>
