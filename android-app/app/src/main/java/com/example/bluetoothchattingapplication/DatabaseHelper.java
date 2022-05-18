@@ -91,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 //2 - received-----------------state -4
                 int i=Integer.parseInt(data.getString(4));
                 if(i==1){
-                    s = "SENT     : ".concat(data.getString(2));
+                    s = "SENT       : ".concat(data.getString(2));
                 }else{
                     s = "RECEIVED : ".concat(data.getString(2));
                 }
