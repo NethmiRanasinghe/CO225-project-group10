@@ -75,12 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    public Cursor getListForDevice(BluetoothDevice device){
-        //this method will get the data for a particular device address
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE device = "+ device.getAddress(), null);
-        return data;
-    }
+
 
 
 }
