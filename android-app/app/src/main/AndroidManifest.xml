@@ -44,6 +44,9 @@
             android:exported="false" />
         <activity
             android:name=".HomePage"
+            android:exported="false" />
+        <activity
+            android:name=".FirstSplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
