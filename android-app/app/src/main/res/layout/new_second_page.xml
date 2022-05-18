@@ -49,8 +49,10 @@
         android:layout_marginTop="116dp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scanAvailable" />
+        app:layout_constraintTop_toBottomOf="@+id/scanAvailable"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView4"
@@ -74,9 +76,9 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/pairedDeviceList"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scanAvailable"
-        app:layout_constraintVertical_bias="0.852" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

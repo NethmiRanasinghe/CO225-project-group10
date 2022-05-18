@@ -75,6 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //method to get the data from the database
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        //Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE device = "+ mBTDevice.getAddress(), null);
         //return data;
 
         ArrayList<String> dataList = new ArrayList<>();
@@ -84,8 +85,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(data.getCount()==0){
             //no data in the database: put a toast
         }else{
+            String s;
             while(data.moveToNext()){
-                dataList.add(data.getString(2));
+                //1 - sent
+                //2 - received-----------------state -4
+                int i=Integer.parseInt(data.getString(4));
+                if(i==1){
+                    s = "sent:".concat(data.getString(2));
+                }else{
+                    s = "Received:".concat(data.getString(2));
+                }
+                dataList.add(s);
 
                 //below the context was going to pass by the keyword 'the', but it gave an error.
                 //then it was changed to getApplicationContext() which do the same thing I guess : [need to check this]
