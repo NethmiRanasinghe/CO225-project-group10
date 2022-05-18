@@ -78,11 +78,11 @@
     <ListView
         android:id="@+id/message_history"
         android:layout_width="wrap_content"
-        android:layout_height="151dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/lvNewDevices"
         android:layout_marginTop="45dp"
         android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll"/>
+        android:transcriptMode="alwaysScroll" />
 
     <TextView
         android:id="@+id/textView2"

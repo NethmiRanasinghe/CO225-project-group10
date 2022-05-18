@@ -37,7 +37,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BluetoothChattingApplication">
         <activity
-            android:name=".MainActivity"
+            android:name=".NewSecondPage"
+            android:exported="false" />
+        <activity
+            android:name=".NewThirdPage"
             android:exported="false" />
         <activity
             android:name=".HomePage"

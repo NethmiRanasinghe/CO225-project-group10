@@ -78,7 +78,7 @@ public class HomePage extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent proceedToNext = new Intent(HomePage.this, MainActivity.class);
+                Intent proceedToNext = new Intent(HomePage.this, NewSecondPage.class);
                 startActivity(proceedToNext);
             }
         });
