@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 messages.append("SENT : " + sentMessage + "\n");
                 Log.d(TAG, "message displaying at outgoing chat...");
                 //incomingMessages.setGravity(Gravity.RIGHT);
-                incomingMessages.setText(messages);
+              //  incomingMessages.setText(messages);
 
                 //________________________________________________latest update___________________________________________
 
@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Log.d(TAG, "message sending to incoming chat...");
             listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
 
-            incomingMessages.setText(messages);
+           // incomingMessages.setText(messages);
         }
     };
 

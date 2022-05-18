@@ -80,7 +80,9 @@
         android:layout_width="wrap_content"
         android:layout_height="151dp"
         android:layout_below="@+id/lvNewDevices"
-        android:layout_marginTop="45dp" />
+        android:layout_marginTop="45dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"/>
 
     <TextView
         android:id="@+id/textView2"
