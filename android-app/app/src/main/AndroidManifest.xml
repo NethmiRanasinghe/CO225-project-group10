@@ -37,7 +37,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BluetoothChattingApplication">
         <activity
-            android:name=".withoutDB_MainActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".HomePage"

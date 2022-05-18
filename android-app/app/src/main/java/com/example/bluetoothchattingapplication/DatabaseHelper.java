@@ -1,5 +1,6 @@
 package com.example.bluetoothchattingapplication;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -71,6 +72,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //method to get the data from the database
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return data;
+    }
+
+    public Cursor getListForDevice(BluetoothDevice device){
+        //this method will get the data for a particular device address
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE device = "+ device.getAddress(), null);
         return data;
     }
 

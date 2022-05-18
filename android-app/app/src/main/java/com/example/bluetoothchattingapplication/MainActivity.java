@@ -234,6 +234,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View view) {
                 try {
                     startConnection();
+                    ArrayList<String> dataList = new ArrayList<>();
+
+                    Cursor data = mDatabaseHelper.getListForDevice(mBTDevice);
+
+                    if(data.getCount()==0){
+                        //no data in the database: put a toast
+                    }else{
+                        while(data.moveToNext()){
+                            dataList.add(data.getString(2));
+
+                            //below the context was going to pass by the keyword 'the', but it gave an error.
+                            //then it was changed to getApplicationContext() which do the same thing I guess : [need to check this]
+                            ListAdapter listAdapter =  new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,dataList);
+                            listView.setAdapter(listAdapter);
+                        }
+                    }
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -268,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 //________________________________________________latest update___________________________________________
 
                 //need to populate an Array list from the database
-
+                /*
 
                 ArrayList<String> dataList = new ArrayList<>();
 
@@ -286,6 +302,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         listView.setAdapter(listAdapter);
                     }
                 }
+                */
+
                 //________________________________________________________________________________________________________
 
                 //after message is sent the editText field be empty
