@@ -3,54 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color">
 
     <Button
         android:id="@+id/startConnection"
-        android:layout_width="403dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="44dp"
-        android:text="Click to start chat"
-        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        android:layout_width="410dp"
+        android:layout_height="39dp"
+        android:text="Start Chat"
+
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:backgroundTint="@color/button_background_color"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/typeMsg"
-        android:layout_width="201dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="273dp"
+        android:layout_height="48dp"
+        android:background="@color/white"
         android:ems="10"
         android:hint="Enter Text Here"
         android:inputType="textPersonName"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/send"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.057" />
 
     <Button
         android:id="@+id/send"
-        android:layout_width="112dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="100dp"
+        android:layout_height="43dp"
+        android:background="@drawable/rounded_cornerbutton"
         android:text="Send"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:backgroundTint="@color/button_background_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
 
     <ListView
         android:id="@+id/chatScreen"
-        android:layout_width="340dp"
-        android:layout_height="510dp"
+        android:layout_width="410dp"
+        android:layout_height="635dp"
         android:layout_marginTop="10dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startConnection"
-        android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll"/>
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

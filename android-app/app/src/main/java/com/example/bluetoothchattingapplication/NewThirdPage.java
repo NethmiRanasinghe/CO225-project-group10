@@ -98,7 +98,7 @@ public class NewThirdPage extends AppCompatActivity {
                     //adding data to the database
 
                     //AddData(mBTDevice.getAddress(),sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
-                    listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
+                    listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice.getAddress(),getApplicationContext()));
 
 
                 } catch (NullPointerException e) {
@@ -124,8 +124,8 @@ public class NewThirdPage extends AppCompatActivity {
 
 //                //adding data to the database
 //
-                  AddData(mBTDevice.getAddress(),sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
-//                listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
+                AddData(mBTDevice.getAddress(),sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
+                listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice.getAddress(),getApplicationContext()));
 
                 //after message is sent the editText field be empty
                 etSend.setText("");
@@ -142,7 +142,7 @@ public class NewThirdPage extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             String text = intent.getStringExtra("theMessage");
             AddData(mBTDevice.getAddress(),text,String.valueOf(LocalDateTime.now()),2); //here took a default string as a data and time ;-)
-            listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
+            listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice.getAddress(),getApplicationContext()));
         }
     };
 

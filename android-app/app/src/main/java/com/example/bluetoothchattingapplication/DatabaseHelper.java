@@ -71,11 +71,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public ListAdapter getListContents(BluetoothDevice mBTDevice, Context context){
+    public ListAdapter getListContents(String mBTDevice, Context context){
         //method to get the data from the database
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        //Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE device = "+ mBTDevice.getAddress(), null);
+        //Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE device = "+ mBTDevice, null);
         //return data;
 
         ArrayList<String> dataList = new ArrayList<>();
@@ -91,9 +91,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 //2 - received-----------------state -4
                 int i=Integer.parseInt(data.getString(4));
                 if(i==1){
-                    s = "sent:".concat(data.getString(2));
+                    s = "SENT     : ".concat(data.getString(2));
                 }else{
-                    s = "Received:".concat(data.getString(2));
+                    s = "RECEIVED : ".concat(data.getString(2));
                 }
                 dataList.add(s);
 

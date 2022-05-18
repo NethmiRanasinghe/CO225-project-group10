@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 //ListAdapter listAdapter1;
                 //Cursor data = mDatabaseHelper.getListForDevice(mBTDevice);
-                listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
+                listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice.getAddress(),getApplicationContext()));
 
 
 
@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             messages.append("RECEIVE : " + text + "\n");
             Log.d(TAG, "message sending to incoming chat...");
-            listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice,getApplicationContext()));
+            listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice.getAddress(),getApplicationContext()));
 
            // incomingMessages.setText(messages);
         }
