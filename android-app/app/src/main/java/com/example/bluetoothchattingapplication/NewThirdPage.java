@@ -47,7 +47,7 @@ public class NewThirdPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_third_page);
+        setContentView(R.layout.activity_main);
 
 
         btnStartConnection = (Button) findViewById(R.id.startConnection);
@@ -97,7 +97,7 @@ public class NewThirdPage extends AppCompatActivity {
 
 //                //adding data to the database
 //
-                AddData(mBTDevice.getAddress(),sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
+                AddData(mBTDevice.getAddress(),mBluetoothAdapter.getName(), sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
                 listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice.getAddress(),getApplicationContext()));
 
                 //after message is sent the editText field be empty
@@ -114,7 +114,7 @@ public class NewThirdPage extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String text = intent.getStringExtra("theMessage");
-            AddData(mBTDevice.getAddress(),text,String.valueOf(LocalDateTime.now()),2); //here took a default string as a data and time ;-)
+            AddData(mBTDevice.getAddress(),mBTDevice.getName(), text,String.valueOf(LocalDateTime.now()),2); //here took a default string as a data and time ;-)
             listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice.getAddress(),getApplicationContext()));
         }
     };
@@ -175,9 +175,9 @@ public class NewThirdPage extends AppCompatActivity {
 //    }
 
     //*******************************************************for database********************************************************************
-    public void AddData(String deviceAddress, String message, String dateTime, int status){
+    public void AddData(String deviceAddress, String deviceName, String message, String dateTime, int status){
         //this method will send the data to the database
-        boolean insertData = mDatabaseHelper.addData(deviceAddress, message, dateTime, status); //inserting data
+        boolean insertData = mDatabaseHelper.addData(deviceAddress, deviceName, message, dateTime, status); //inserting data
 
         //checking whether the data insertion is completed is successful or not
         if(insertData){

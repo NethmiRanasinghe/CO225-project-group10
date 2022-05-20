@@ -311,7 +311,13 @@ public class BluetoothCommunication {
         // Synchronize a copy of the ConnectedThread
         Log.d(TAG, "write: Write Called.");
         //perform the write
-        mConnectedThread.write(out);
+
+        try {
+            mConnectedThread.write(out);
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
 }
