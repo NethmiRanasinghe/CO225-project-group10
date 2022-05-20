@@ -13,7 +13,9 @@
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"

@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "message_table";
     private static final String ID = "ID";
     private static final String DEVICE = "device";
+    private static final String DEVICE_NAME = "name";
     private static final String MESSAGE = "message";
     private static final String DATETIME = "date_time";
     private static final String STATE = "state";
@@ -38,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (" + ID + " INTEGER PRIMARY KEY, " + DEVICE +
-                " TEXT, " + MESSAGE + " TEXT, " + DATETIME + " TEXT, " + STATE + " INTETGER) ";
+                " TEXT, " + DEVICE_NAME + " TEXT, " + MESSAGE + " TEXT, " + DATETIME + " TEXT, " + STATE + " INTETGER) ";
 
         db.execSQL(createTable);
     }
@@ -50,15 +51,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String deviceAddress, String receivedMessage, String dateAndTime, int state) {
+    public boolean addData(String deviceAddress, String deviceName, String receivedMessage, String dateAndTime, int state) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DEVICE, deviceAddress);
+            contentValues.put(DEVICE_NAME, deviceName);
         contentValues.put(MESSAGE, receivedMessage);
         contentValues.put(DATETIME, dateAndTime);
         contentValues.put(STATE, state);
 
-        Log.d(TAG, "addData: Adding "+"Device Address:" + deviceAddress + "Message:" + receivedMessage
+        Log.d(TAG, "addData: Adding "+"Device Address:" + deviceAddress + "Device Name:" + deviceName + "Message:" + receivedMessage
                 +"Date and Time:"+dateAndTime+ " to " + TABLE_NAME);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
@@ -75,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //method to get the data from the database
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        //Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE device = "+ mBTDevice, null);
+        //Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE " + DEVICE + " = " + mBTDevice, null);
         //return data;
 
         ArrayList<String> dataList = new ArrayList<>();
@@ -89,17 +91,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while(data.moveToNext()){
                 //1 - sent
                 //2 - received-----------------state -4
-                int i=Integer.parseInt(data.getString(4));
-                if(i==1){
-                    s = "SENT       : ".concat(data.getString(2));
-                }else{
-                    s = "RECEIVED : ".concat(data.getString(2));
-                }
-                dataList.add(s);
+                if (data.getString(1).equals(mBTDevice)) {
+                    int i = Integer.parseInt(data.getString(5));
+                    if (i == 1) {
+                        s = data.getString(2).concat(" : ").concat(data.getString(3));
+                    } else {
+                        s = data.getString(2).concat(" : ").concat(data.getString(3));
+                    }
+                    dataList.add(s);
 
-                //below the context was going to pass by the keyword 'the', but it gave an error.
-                //then it was changed to getApplicationContext() which do the same thing I guess : [need to check this]
-                listAdapter =  new ArrayAdapter<>(context,android.R.layout.simple_list_item_1,dataList);
+                    //below the context was going to pass by the keyword 'the', but it gave an error.
+                    //then it was changed to getApplicationContext() which do the same thing I guess : [need to check this]
+                    listAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, dataList);
+
+                }
                 //listView.setAdapter(listAdapter);
             }
         }

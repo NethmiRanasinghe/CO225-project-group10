@@ -100,12 +100,14 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
                 //3 cases:
                 //case1: bonded already
                 if (mDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
-                    Log.d(TAG, "BroadcastReceiver: BOND_BONDED.");
+                    Log.d(TAG, "BroadcastReceiver: ALREADY_PAIRED************************************************8");
                     mBTDevice = mDevice;
+
                 }
                 //case2: creating a bone
                 if (mDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
-                    Log.d(TAG, "BroadcastReceiver: BOND_BONDING.");
+                    Log.d(TAG, "BroadcastReceiver: PAIRING.");
+
                 }
                 //case3: breaking a bond
                 if (mDevice.getBondState() == BluetoothDevice.BOND_NONE) {
@@ -247,7 +249,6 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
             Log.d(TAG, "Trying to pair with " + deviceName);
 
             mBTDevices.get(i).createBond();
-
             mBTDevice = mBTDevices.get(i);
 
         }
