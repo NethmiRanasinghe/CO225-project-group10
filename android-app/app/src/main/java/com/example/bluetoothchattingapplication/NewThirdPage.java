@@ -38,10 +38,6 @@ public class NewThirdPage extends AppCompatActivity {
     private static final UUID MY_UUID_INSECURE = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
     BluetoothDevice mBTDevice;
 
-   // public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
-   // public DeviceListAdapter mDeviceListAdapter;
-  //  ListView lvNewDevices;
-
     ListView listView;
     //************************************************************for database***********************************************************
     DatabaseHelper mDatabaseHelper; //for database
@@ -53,19 +49,13 @@ public class NewThirdPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_third_page);
 
-         //mBluetoothConnection = new BluetoothCommunication(NewThirdPage.this);
 
         btnStartConnection = (Button) findViewById(R.id.startConnection);
         btnSend = (Button) findViewById(R.id.send);
         etSend = (EditText) findViewById(R.id.typeMsg);
 
-//        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,new IntentFilter("incomingMessage"));
-//        //Broadcasts when bond state changes (ie:pairing)
-//        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
-//        registerReceiver(mBroadcastReceiver4, filter);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,new IntentFilter("incomingMessage"));
-        //lvNewDevices.setOnItemClickListener(MainActivity.this);
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         Parcelable user = getIntent().getParcelableExtra("bluetoothDevice");
@@ -76,35 +66,18 @@ public class NewThirdPage extends AppCompatActivity {
         mDatabaseHelper = new DatabaseHelper(NewThirdPage.this);
 
         listView = (ListView) findViewById(R.id.chatScreen);
-        //***************************************************************************************************************************
-
-//        btnONOFF.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "enabling/disabling bluetooth...");
-//                enableDisableBT();
-//            }
-//        });
-
-
 
         btnStartConnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-//                    Parcelable user = getIntent().getParcelableExtra("bluetoothDevice");
-//                    mBTDevice = (BluetoothDevice) user;
+
                     startConnection();
-                    //adding data to the database
-
-                    //AddData(mBTDevice.getAddress(),sentMessage, String.valueOf(LocalDateTime.now()), 1); //here took a default string as a data and time ;-)
                     listView.setAdapter(mDatabaseHelper.getListContents(mBTDevice.getAddress(),getApplicationContext()));
-
 
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
-                //startConnection();
             }
         });
 

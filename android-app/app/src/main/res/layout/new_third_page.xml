@@ -9,11 +9,11 @@
     <ListView
         android:id="@+id/chatScreen"
         android:layout_width="match_parent"
-        android:layout_height="618dp"
+        android:layout_height="631dp"
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="-3dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -50,9 +50,7 @@
         android:id="@+id/startConnection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
 
-        android:layout_marginBottom="676dp"
         android:backgroundTint="@color/button_background_color"
         android:onClick="sendMessage"
         android:text="START THE CHAT"

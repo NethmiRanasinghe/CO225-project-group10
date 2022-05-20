@@ -29,8 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATETIME = "date_time";
     private static final String STATE = "state";
 
-
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -72,7 +70,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ListAdapter getListContents(String mBTDevice, Context context){
-        //method to get the data from the database
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         //Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE device = "+ mBTDevice, null);
@@ -106,16 +103,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return listAdapter;
     }
-
-    /*
-    public Cursor getListForDevice(BluetoothDevice device){
-        //this method will get the data for a particular device address
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE device = "+ device.getAddress(), null);
-        return data;
-
-    }
-*/
 
 
 

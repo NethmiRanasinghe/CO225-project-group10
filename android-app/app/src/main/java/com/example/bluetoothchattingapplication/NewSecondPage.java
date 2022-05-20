@@ -29,20 +29,16 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
     BluetoothAdapter mBluetoothAdapter;
     Button btnEnableDisable_Discoverable;
     Button scan_Available;
-    //Button showPairedButton;
     ListView listOfPairedDevices;
     ArrayAdapter<String> pairedDevices;
-
-  //  private static final UUID MY_UUID_INSECURE = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
-
     BluetoothDevice mBTDevice;
 
-    public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
-    public DeviceListAdapter mDeviceListAdapter;
+    ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
+    DeviceListAdapter mDeviceListAdapter;
 
     ListView availableList;
 
-    //second broadcast receiver
+    //second broadcast receiver to enable discover
 
     private final BroadcastReceiver mBroadcastReceiver2 = new BroadcastReceiver() {
         @Override
@@ -72,7 +68,8 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
         }
     };
 
-    //third broadcast receiver
+    //third broadcast receiver to scan devices
+
     private BroadcastReceiver mBroadcastReceiver3 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -85,11 +82,13 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
                 Log.d(TAG, "onReceive: " + device.getName() + ": " + device.getAddress());
                 mDeviceListAdapter = new DeviceListAdapter(context, R.layout.device_adapter_view, mBTDevices);
                 availableList.setAdapter(mDeviceListAdapter);
+
             }
         }
     };
 
-    //forth broadcast receiver
+    //forth broadcast receiver to pair devices
+
     private final BroadcastReceiver mBroadcastReceiver4 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -102,10 +101,14 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
                 if (mDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
                     Log.d(TAG, "BroadcastReceiver: BOND_BONDED.");
                     mBTDevice = mDevice;
+                    Toast.makeText(getApplicationContext(), "devices already paired", Toast.LENGTH_LONG).show();
+
                 }
                 //case2: creating a bone
                 if (mDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
                     Log.d(TAG, "BroadcastReceiver: BOND_BONDING.");
+                    Toast.makeText(getApplicationContext(), "devices pairing finished", Toast.LENGTH_LONG).show();
+
                 }
                 //case3: breaking a bond
                 if (mDevice.getBondState() == BluetoothDevice.BOND_NONE) {
@@ -120,7 +123,7 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
     protected void onDestroy() {
         Log.d(TAG, "onDestroy called.");
         super.onDestroy();
-        // unregisterReceiver(mBroadcastReceiver1);
+
         unregisterReceiver(mBroadcastReceiver2);
         unregisterReceiver(mBroadcastReceiver3);
         unregisterReceiver(mBroadcastReceiver4);
@@ -130,18 +133,14 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_second_page);
-        //Button btnONOFF = (Button) findViewById(R.id.btnOnOff);
 
         btnEnableDisable_Discoverable = (Button) findViewById(R.id.btnDiscoverableONOFF);
         scan_Available = (Button) findViewById(R.id.scanAvailable);
         availableList = (ListView) findViewById(R.id.availableDeviceList);
 
         listOfPairedDevices = (ListView) findViewById(R.id.pairedDeviceList);
-
         mBTDevices = new ArrayList<>();
 
-       // LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver,new IntentFilter("incomingMessage"));
-        //Broadcasts when bond state changes (ie:pairing)
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         registerReceiver(mBroadcastReceiver4, filter);
 
@@ -149,18 +148,12 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
         showPairedDevices();
 
         availableList.setOnItemClickListener(NewSecondPage.this);
-        //*************************************************************************************************************************************************
 
     }
 
     private void showPairedDevices() {
 
-       // showPairedButton.setOnClickListener(new View.OnClickListener() {
-
-//            @Override
-//            public void onClick(View view) {
         Set<BluetoothDevice> pairedBTdevices = mBluetoothAdapter.getBondedDevices();
-        //Toast.makeText(getApplicationContext(), "paired devices", Toast.LENGTH_LONG).show();
         String[] strings = new String[pairedBTdevices.size()];
                 int index = 0;
 
@@ -175,11 +168,10 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
                 }else{
                     Toast.makeText(getApplicationContext(), "no paired devices", Toast.LENGTH_LONG).show();
                 }
-         //   }
-       // });
+
     }
 
-
+    // enable discover
     public void btnEnableDisable_Discoverable(View view) {
         Log.d(TAG, "btnEnableDisable_Discoverable: making the device discoverable");
         Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
@@ -191,6 +183,7 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
+    // scan available devices
     public void btnDiscover(View view) {
         Log.d(TAG, "btnDiscover: Looking for unpaired devices.");
 
@@ -247,7 +240,7 @@ public class NewSecondPage extends AppCompatActivity implements AdapterView.OnIt
             Log.d(TAG, "Trying to pair with " + deviceName);
 
             mBTDevices.get(i).createBond();
-
+            Toast.makeText(getApplicationContext(), "wait for the devices to get paired", Toast.LENGTH_LONG).show();
             mBTDevice = mBTDevices.get(i);
 
         }

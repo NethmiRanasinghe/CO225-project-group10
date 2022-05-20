@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,90 +7,80 @@
 
     <Button
         android:id="@+id/btnDiscoverableONOFF"
-        android:layout_width="173dp"
-        android:layout_height="62dp"
+        android:layout_width="164dp"
+        android:layout_height="69dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="15dp"
+        android:layout_toStartOf="@+id/scanAvailable"
         android:background="@drawable/rounded_cornerbutton"
         android:onClick="btnEnableDisable_Discoverable"
         android:text="Enable Discovery"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        app:backgroundTint="@color/button_background_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/scanAvailable"
-        app:layout_constraintHorizontal_bias="0.717"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093" />
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/scanAvailable"
-        android:layout_width="170dp"
-        android:layout_height="63dp"
+        android:layout_width="171dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/rounded_cornerbutton"
         android:onClick="btnDiscover"
         android:text="Scan Nearby Devices"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        app:backgroundTint="@color/button_background_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.871"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.091" />
-
-    <ListView
-        android:id="@+id/availableDeviceList"
-        android:layout_width="412dp"
-        android:layout_height="271dp"
-
-        android:layout_marginTop="460dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@color/black" />
 
     <ListView
         android:id="@+id/pairedDeviceList"
-        android:layout_width="414dp"
-        android:layout_height="231dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="412dp"
+        android:layout_height="258dp"
 
-        android:dividerHeight="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/availableDeviceList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scanAvailable"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_above="@+id/availableDeviceList"
+        android:layout_marginBottom="47dp"
+        android:dividerHeight="2dp" />
+
+    <ListView
+        android:id="@+id/availableDeviceList"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="4dp"
+        android:dividerHeight="2dp" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        android:layout_width="172dp"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/availableDeviceList"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="118dp"
+        android:layout_marginEnd="119dp"
+        android:layout_marginBottom="11dp"
         android:text="AVAILABLE DEVICES"
         android:textColor="@color/purple_700"
         android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/availableDeviceList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.608" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="133dp"
+        android:layout_height="21dp"
+        android:layout_below="@+id/btnDiscoverableONOFF"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="142dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="135dp"
         android:text="PAIRED DEVICES"
         android:textColor="@color/purple_700"
         android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241" />
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

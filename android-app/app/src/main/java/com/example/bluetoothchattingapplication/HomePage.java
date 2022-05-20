@@ -13,13 +13,13 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class HomePage extends AppCompatActivity {
+
     private static final String TAG = "HomePage";
     Button btnONOFF;
     Button proceed;
-
     BluetoothAdapter mBluetoothAdapter;
 
-    //first broadcast receiver
+    //first broadcast receiver for enabling Bluetooth
     private final BroadcastReceiver mBroadcastReceiver1 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -58,13 +58,11 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_bluetooth_enable);
-
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
         btnONOFF = (Button) findViewById(R.id.btnOnOff);
         proceed = (Button) findViewById(R.id.btn_login);
-
 
         btnONOFF.setOnClickListener(new View.OnClickListener() {
             @Override

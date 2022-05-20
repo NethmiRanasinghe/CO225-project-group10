@@ -1,6 +1,5 @@
 package com.example.bluetoothchattingapplication;
 
-
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -18,6 +17,8 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.UUID;
 
+// connection establish
+// data transfer
 
 public class BluetoothCommunication {
     private static final String TAG = "BluetoothCommunication";
@@ -44,7 +45,6 @@ public class BluetoothCommunication {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         start();
     }
-
 
     /**
      * This thread runs while listening for incoming connections. It behaves
@@ -275,11 +275,6 @@ public class BluetoothCommunication {
             Log.d(TAG, "write: Writing to outputstream: " + text);
             try {
                 mmOutStream.write(bytes);
-
-//                // outgoing msgs display
-//                Intent outgoingMessageIntent = new Intent("outgoingMessage");
-//                outgoingMessageIntent.putExtra("the_OutMessage", text);
-//                LocalBroadcastManager.getInstance(mContext).sendBroadcast(outgoingMessageIntent);
 
 
             } catch (IOException e) {
